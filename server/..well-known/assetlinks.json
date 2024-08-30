@@ -1,0 +1,13 @@
+[
+    {
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.example.multiplayer_tick_tac_toe",
+        "sha256_cert_fingerprints": [
+          "86:CF:16:CD:53:2C:F4:D7:A8:8C:1E:02:7E:92:F3:B3:6F:CD:FC:62:4A:65:01:0D:9C:E2:71:6E:E5:E2:65:F1"
+        ]
+      }
+    }
+  ]
+  

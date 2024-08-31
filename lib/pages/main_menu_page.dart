@@ -21,6 +21,7 @@ class MainMenuPage extends StatefulWidget {
 
 class _MainMenuPageState extends State<MainMenuPage> {
   final Socketservice _socketservice = Socketservice();
+  StreamSubscription? _uriLinkStreamSubscription;
   Timer? _pingTimer;
 
   void pushToCreateRoomPage(BuildContext context) {
@@ -39,12 +40,14 @@ class _MainMenuPageState extends State<MainMenuPage> {
     _socketservice.connectionStatusListener(context);
     _pingTimer = startPingTimer(context);
     _socketservice.pongListener(context);
+    _uriLinkStreamSubscription = setUriLinkStream(context);
   }
 
   @override
   void dispose() {
     super.dispose();
     _pingTimer?.cancel();
+    _uriLinkStreamSubscription?.cancel();
   }
 
   @override

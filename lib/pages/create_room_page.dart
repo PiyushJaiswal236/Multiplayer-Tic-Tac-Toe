@@ -52,7 +52,8 @@ class _createRoomState extends State<CreateRoomPage> {
               ),
               CustomTextfield(controller: _nameController, hintText: "Your NickName"),
               SizedBox(height: size.height*0.02,),
-              CustomButton(onTap: ()=>_socketService.createRoom(_nameController.text), text: "Create")
+              CustomButton(onTap: ()=>_socketService.createRoom(_nameController.text), text: "Create"),
+
             ],
           ),
         ),

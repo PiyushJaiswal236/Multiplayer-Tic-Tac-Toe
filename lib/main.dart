@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:multiplayer_tick_tac_toe/pages/create_room_page.dart';
@@ -6,9 +5,7 @@ import 'package:multiplayer_tick_tac_toe/pages/game_page.dart';
 import 'package:multiplayer_tick_tac_toe/pages/join_room_page.dart';
 import 'package:multiplayer_tick_tac_toe/pages/main_menu_page.dart';
 import 'package:multiplayer_tick_tac_toe/providers/room_data_provider.dart';
-import 'package:multiplayer_tick_tac_toe/resources/SocketService.dart';
 import 'package:multiplayer_tick_tac_toe/utils/colors.dart';
-import 'package:multiplayer_tick_tac_toe/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 void main() {

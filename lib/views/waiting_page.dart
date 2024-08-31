@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:multiplayer_tick_tac_toe/providers/room_data_provider.dart';
+import 'package:multiplayer_tick_tac_toe/responsive/responsive.dart';
+import 'package:multiplayer_tick_tac_toe/utils/utils.dart';
+import 'package:multiplayer_tick_tac_toe/widgets/custom_button.dart';
 import 'package:multiplayer_tick_tac_toe/widgets/custom_textfield.dart';
 import 'package:provider/provider.dart';
 
@@ -30,15 +33,20 @@ class _WaitingPageState extends State<WaitingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("waiting for player to join"),
-        SizedBox(
-          height: 20,
-        ),
-        CustomTextfield(controller: roomIdController, hintText: "",isReadOnly: true,)
-      ],
+    return Responsive(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text("waiting for player to join"),
+          const SizedBox(height: 20,),
+          CustomTextfield(controller: roomIdController, hintText: "",isReadOnly: true,),
+          const SizedBox(height: 20,),
+          CustomButton(onTap: (){}, text: 'Copy ID'),
+          const SizedBox(height: 20,),
+          CustomButton(onTap: (){shareInviteLink(roomIdController.text);}, text: "Share Link"),
+      
+        ],
+      ),
     );
   }
 }

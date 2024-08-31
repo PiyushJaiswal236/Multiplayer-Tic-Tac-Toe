@@ -1,11 +1,9 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:multiplayer_tick_tac_toe/providers/room_data_provider.dart';
 import 'package:multiplayer_tick_tac_toe/resources/SocketService.dart';
 import 'package:provider/provider.dart';
 
-import '../utils/utils.dart';
 
 class PingIndicator extends StatefulWidget {
   const PingIndicator({super.key});
@@ -15,7 +13,6 @@ class PingIndicator extends StatefulWidget {
 }
 
 class _pingIndiacator extends State<PingIndicator> {
-  final Socketservice _socketservice = Socketservice();
 
 
 
@@ -36,7 +33,6 @@ class _pingIndiacator extends State<PingIndicator> {
 
   @override
   Widget build(BuildContext context) {
-    Socketservice socketservice = Socketservice();
     final RoomDataProvider roomDataProvider =
         Provider.of<RoomDataProvider>(context);
     return roomDataProvider.isConnected

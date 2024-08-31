@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:multiplayer_tick_tac_toe/pages/game_page.dart';
 import 'package:multiplayer_tick_tac_toe/providers/room_data_provider.dart';
 import 'package:multiplayer_tick_tac_toe/resources/SocketService.dart';
 import 'package:provider/provider.dart';
@@ -48,22 +47,24 @@ Timer? startPingTimer(BuildContext context) {
   return pingTimer;
 }
 
-void shareAppLink(String roomId) {
-  Share.share('Join my game room: https://yourdomain.com/room?id=$roomId');
+void shareInviteLink(String roomId) {
+  Share.share('Join my game room: https://multiplayer-tic-tac-toe-78eh.onrender.com/room?id=$roomId');
 }
 
 StreamSubscription? setUriLinkStream(BuildContext context){
   Socketservice socketservice = Socketservice();
+
+
   return uriLinkStream.listen((Uri? uri){
+  print("Opening link via app");
+
     if(uri!=null){
-      final String? _roomId = uri.queryParameters['id'];
+      final String? roomId = uri.queryParameters['id'];
       print('Received deep link: ${uri.toString()}');
 
-      print('Room ID: $_roomId');
+      print('Room ID: $roomId');
       socketservice.roomJoinedListener(context);
-      socketservice.joinRoom("GuestInvitee", _roomId!);
-
-      Navigator.pushNamed(context, GamePage.routeName);
+      socketservice.joinRoom("GuestInvitee", roomId!);
     }
   });
 

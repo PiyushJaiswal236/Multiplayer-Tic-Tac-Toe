@@ -11,8 +11,6 @@ import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 class Socketservice {
-  late final BuildContext _contextForOnConnect;
-
   static late Socket _socketclient;
 
   //Getter
@@ -20,7 +18,6 @@ class Socketservice {
 
   //Setter
   void setContextForOnConnect(BuildContext value) {
-    _contextForOnConnect = value;
     _socketclient = SocketClient.instance(value).socket!;
   }
 

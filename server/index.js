@@ -6,6 +6,7 @@ var Room = require('./models/room')
 const cors = require('cors');
 const { triggerAsyncId } = require('async_hooks');
 const { log } = require('console');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,8 +16,12 @@ app.use(cors({
     methods: ["GET", "POST"]
 }))
 
-app.use("/", (req, res) => { res.send("hello") })
 
+app.get('/.well-known/assetlinks.json',(req,res)=>{
+    res.sendFile(__dirname + '/.well-known/assetlinks.json');
+});
+
+app.get
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
@@ -24,6 +29,7 @@ const io = new Server(server, {
         methods: ["GET", "POST"]
     }
 });
+
 
 app.use(express.json());
 

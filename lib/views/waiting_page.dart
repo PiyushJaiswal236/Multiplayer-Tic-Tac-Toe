@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:multiplayer_tick_tac_toe/providers/room_data_provider.dart';
 import 'package:multiplayer_tick_tac_toe/responsive/responsive.dart';
 import 'package:multiplayer_tick_tac_toe/utils/utils.dart';
@@ -31,6 +32,8 @@ class _WaitingPageState extends State<WaitingPage> {
     roomIdController.dispose();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Responsive(
@@ -41,7 +44,9 @@ class _WaitingPageState extends State<WaitingPage> {
           const SizedBox(height: 20,),
           CustomTextfield(controller: roomIdController, hintText: "",isReadOnly: true,),
           const SizedBox(height: 20,),
-          CustomButton(onTap: (){}, text: 'Copy ID'),
+          CustomButton(onTap: (){
+            copyToClipboard(context,roomIdController.text);
+          }, text: 'Copy ID'),
           const SizedBox(height: 20,),
           CustomButton(onTap: (){shareInviteLink(roomIdController.text);}, text: "Share Link"),
       

@@ -30,7 +30,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="yourdomain.com" android:pathPrefix="/room" />
+                <data android:scheme="https" android:host="multiplayer-tic-tac-toe-78eh.onrender.com" android:pathPrefix="/room" />
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

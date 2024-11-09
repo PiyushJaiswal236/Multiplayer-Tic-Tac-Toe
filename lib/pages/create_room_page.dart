@@ -34,6 +34,7 @@ class _createRoomState extends State<CreateRoomPage> {
 
   @override
   Widget build(BuildContext context) {
+
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Responsive(

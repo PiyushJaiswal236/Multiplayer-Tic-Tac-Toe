@@ -2,10 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { createServer } = require('http');
 const { Server } = require('socket.io');
+const http = require('http');
+
 var Room = require('./models/room')
 const cors = require('cors');
-const { triggerAsyncId } = require('async_hooks');
-const { log } = require('console');
+
 const path = require('path');
 
 const app = express();
@@ -16,12 +17,14 @@ app.use(cors({
     methods: ["GET", "POST"]
 }))
 
+app.get("/health",(req,res)=>{
+    res.send("health OK")
+})
 
-app.get('/.well-known/assetlinks.json',(req,res)=>{
+app.get('/.well-known/assetlinks.json', (req, res) => {
     res.sendFile(__dirname + '/.well-known/assetlinks.json');
 });
 
-app.get
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
@@ -29,6 +32,22 @@ const io = new Server(server, {
         methods: ["GET", "POST"]
     }
 });
+
+const keepAlive = () => {
+
+    http.get(`http://localhost:${PORT}`, (res) => {
+        res.on('data', () => { });
+        res.on('end', () => {
+            console.log(`Pinged server at ${new Date().toLocaleTimeString()}`);
+        });
+    }).on('error', (err) => {
+        console.error(`Error pinging server: ${err.message}`);
+    });
+};
+
+setInterval(keepAlive, 1500000);
+
+keepAlive();
 
 
 app.use(express.json());
@@ -44,8 +63,6 @@ mongoose.connect(DB).then(() => {
 
 io.on("connection", (socket) => {
     console.log("A stranger connected : ID " + socket.id);
-
-
 
 
     socket.on("createRoom", async ({ nickname }) => {
@@ -113,7 +130,7 @@ io.on("connection", (socket) => {
             if (room.filledBoxes > 2) {
                 if (room.displayElements[0] == room.displayElements[1] && room.displayElements[0] == room.displayElements[2] && room.displayElements[0] != "") {
                     console.log("1");
-                    room.turn.points++;
+                    room.player[turnIndex].points++;
                     await room.save();
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": true,
@@ -122,7 +139,7 @@ io.on("connection", (socket) => {
                 }
                 else if (room.displayElements[3] == room.displayElements[4] && room.displayElements[3] == room.displayElements[5] && room.displayElements[3] != "") {
                     console.log("2");
-                    room.turn.points++;
+                    room.player[turnIndex].points++;
                     await room.save();
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": true,
@@ -131,7 +148,7 @@ io.on("connection", (socket) => {
                 }
                 else if (room.displayElements[6] == room.displayElements[7] && room.displayElements[6] == room.displayElements[8] && room.displayElements[6] != "") {
                     console.log("3");
-                    room.turn.points++;
+                    room.player[turnIndex].points++;
                     await room.save();
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": true,
@@ -140,7 +157,7 @@ io.on("connection", (socket) => {
                 }
                 else if (room.displayElements[0] == room.displayElements[4] && room.displayElements[0] == room.displayElements[8] && room.displayElements[0] != "") {
                     console.log("4");
-                    room.turn.points++;
+                    room.player[turnIndex].points++;
                     await room.save();
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": true,
@@ -149,7 +166,7 @@ io.on("connection", (socket) => {
                 }
                 else if (room.displayElements[2] == room.displayElements[4] && room.displayElements[2] == room.displayElements[6] && room.displayElements[2] != "") {
                     console.log("5");
-                    room.turn.points++;
+                    room.player[turnIndex].points++;
                     await room.save();
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": true,
@@ -158,7 +175,7 @@ io.on("connection", (socket) => {
                 }
                 else if (room.displayElements[0] == room.displayElements[3] && room.displayElements[0] == room.displayElements[6] && room.displayElements[0] != "") {
                     console.log("6");
-                    room.turn.points++;
+                    room.player[turnIndex].points++;
                     await room.save();
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": true,
@@ -167,7 +184,7 @@ io.on("connection", (socket) => {
                 }
                 else if (room.displayElements[1] == room.displayElements[4] && room.displayElements[1] == room.displayElements[7] && room.displayElements[1] != "") {
                     console.log("7");
-                    room.turn.points++;
+                    room.player[turnIndex].points++;
                     await room.save();
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": true,
@@ -176,7 +193,7 @@ io.on("connection", (socket) => {
                 }
                 else if (room.displayElements[2] == room.displayElements[5] && room.displayElements[2] == room.displayElements[8] && room.displayElements[8] != "") {
                     console.log("8");
-                    room.turn.points++;
+                    room.player[turnIndex].points++;
                     await room.save();
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": true,
@@ -211,33 +228,32 @@ io.on("connection", (socket) => {
             console.log(error);
         }
     })
-    socket.on('requestReplay', async({ roomId }) => {
+    socket.on('requestReplay', async ({ roomId }) => {
         console.log("Replay Requested");
         try {
             let room = await Room.findById(roomId);
             console.log(room.player);
-            let arr = [{ f: 4, a: 8 }, { f: 3, a: 6 }]
             let nickname
 
             if (room.player[0].socketId == socket.id) {
                 nickname = room.player[0].nickname;
                 room.player[0].wantsReplay = true;
-                
+
             } else {
                 room.player[1].wantsReplay = true;
                 nickname = room.player[1].nickname;
 
             }
-            console.log(room.player[0].wantsReplay+" && "+room.player[1].wantsReplay);
+            console.log(room.player[0].wantsReplay + " && " + room.player[1].wantsReplay);
 
             if (room.player[0].wantsReplay && room.player[1].wantsReplay) {
-                room.filledBoxes=0;
-                room.displayElements=['','', '','','','','','',''];
+                room.filledBoxes = 0;
+                room.displayElements = ['', '', '', '', '', '', '', '', ''];
                 await room.save();
-                io.to(roomId).emit('gameRestart',room);
+                io.to(roomId).emit('gameRestart', room);
             } else {
                 await room.save();
-                socket.to(roomId).emit('replayRequested',{nickname});
+                socket.to(roomId).emit('replayRequested', { nickname });
             }
 
         } catch (e) {
@@ -246,7 +262,7 @@ io.on("connection", (socket) => {
 
     });
 
-    socket.on("pinggg", ({ startTime }) => {
+    socket.on("ping", ({ startTime }) => {
         socket.emit("pong", startTime);
     });
 

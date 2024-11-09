@@ -120,11 +120,17 @@ class Socketservice {
       _socketclient.on("roomUpdated", (room) {
         Provider.of<RoomDataProvider>(context, listen: false)
             .updateRoomData(room);
-        print('************');
-        print(room);
+        if (kDebugMode) {
+          print('************');
+        }
+        if (kDebugMode) {
+          print(room);
+        }
       });
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -145,7 +151,9 @@ class Socketservice {
 
   void matchConcludedListener(BuildContext context) {
     _socketclient.on("matchConluded", (data) {
-      print(data);
+      if (kDebugMode) {
+        print(data);
+      }
       if (data['winnerDeclared']) {
         log("Someone Won !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         log("And he is ${data['winner']}");
@@ -166,14 +174,16 @@ class Socketservice {
 
   void gameRestartListener(BuildContext context) {
     _socketclient.on("gameRestart", (data) {
-      print("___________________________________________________Game Restarted");
-      print(data);
+      if (kDebugMode) {
+        print(
+            "___________________________________________________Game Restarted");
+        print(data);
+      }
 
-        restartBoard(context);
+      restartBoard(context);
 
-        restartMatch(context,data);
-        Navigator.pop(context);
-
+      restartMatch(context, data);
+      Navigator.pop(context);
     });
   }
 

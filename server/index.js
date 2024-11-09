@@ -274,7 +274,7 @@ io.on("connection", (socket) => {
     });
 
     socket.on("pingg", ({ startTime }) => {
-    console.log("pinged at "+startTime)
+        //console.log("pinged at "+startTime)
         socket.emit("pong", startTime);
     });
 

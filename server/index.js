@@ -280,6 +280,22 @@ io.on("connection", (socket) => {
 
 });
 
+const url = `https://multiplayer-tic-tac-toe-78eh.onrender.com/`; 
+const interval = 30000; 
+
+function reloadWebsite() {
+  axios.get(url)
+    .then(response => {
+      console.log(`Reloaded at ${new Date().toISOString()}: Status Code ${response.status}`);
+    })
+    .catch(error => {
+      console.error(`Error reloading at ${new Date().toISOString()}:`, error.message);
+    });
+}
+
+
+setInterval(reloadWebsite, interval);
+
 server.listen(PORT, "0.0.0.0", () => {
     console.log('Server Started and Running on PORT : ' + PORT);
 });

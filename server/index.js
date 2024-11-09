@@ -273,7 +273,7 @@ io.on("connection", (socket) => {
 
     });
 
-    socket.on("ping", ({ startTime }) => {
+    socket.on("pingg", ({ startTime }) => {
     console.log("pinged at "+startTime)
         socket.emit("pong", startTime);
     });

@@ -33,22 +33,6 @@ const io = new Server(server, {
     }
 });
 
-const keepAlive = () => {
-
-    http.get(`http://localhost:${PORT}`, (res) => {
-        res.on('data', () => { });
-        res.on('end', () => {
-            console.log(`Pinged server at ${new Date().toLocaleTimeString()}`);
-        });
-    }).on('error', (err) => {
-        console.error(`Error pinging server: ${err.message}`);
-    });
-};
-
-setInterval(keepAlive, 1500000);
-
-keepAlive();
-
 
 app.use(express.json());
 

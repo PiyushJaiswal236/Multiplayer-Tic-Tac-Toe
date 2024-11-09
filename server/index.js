@@ -136,6 +136,7 @@ io.on("connection", (socket) => {
                         "winnerDeclared": true,
                         "winner": room.turn,
                     })
+                    io.to(roomId).emit('updatePlayers', room.player)
                 }
                 else if (room.displayElements[3] == room.displayElements[4] && room.displayElements[3] == room.displayElements[5] && room.displayElements[3] != "") {
                     console.log("2");
@@ -144,7 +145,9 @@ io.on("connection", (socket) => {
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": true,
                         "winner": room.turn,
+
                     })
+                    io.to(roomId).emit('updatePlayers', room.player)
                 }
                 else if (room.displayElements[6] == room.displayElements[7] && room.displayElements[6] == room.displayElements[8] && room.displayElements[6] != "") {
                     console.log("3");
@@ -154,6 +157,7 @@ io.on("connection", (socket) => {
                         "winnerDeclared": true,
                         "winner": room.turn,
                     })
+                    io.to(roomId).emit('updatePlayers', room.player)
                 }
                 else if (room.displayElements[0] == room.displayElements[4] && room.displayElements[0] == room.displayElements[8] && room.displayElements[0] != "") {
                     console.log("4");
@@ -163,6 +167,7 @@ io.on("connection", (socket) => {
                         "winnerDeclared": true,
                         "winner": room.turn,
                     })
+                    io.to(roomId).emit('updatePlayers', room.player)
                 }
                 else if (room.displayElements[2] == room.displayElements[4] && room.displayElements[2] == room.displayElements[6] && room.displayElements[2] != "") {
                     console.log("5");
@@ -172,6 +177,7 @@ io.on("connection", (socket) => {
                         "winnerDeclared": true,
                         "winner": room.turn,
                     })
+                    io.to(roomId).emit('updatePlayers', room.player)
                 }
                 else if (room.displayElements[0] == room.displayElements[3] && room.displayElements[0] == room.displayElements[6] && room.displayElements[0] != "") {
                     console.log("6");
@@ -181,6 +187,7 @@ io.on("connection", (socket) => {
                         "winnerDeclared": true,
                         "winner": room.turn,
                     })
+                    io.to(roomId).emit('updatePlayers', room.player)
                 }
                 else if (room.displayElements[1] == room.displayElements[4] && room.displayElements[1] == room.displayElements[7] && room.displayElements[1] != "") {
                     console.log("7");
@@ -190,6 +197,8 @@ io.on("connection", (socket) => {
                         "winnerDeclared": true,
                         "winner": room.turn,
                     })
+                    io.to(roomId).emit('updatePlayers', room.player)
+
                 }
                 else if (room.displayElements[2] == room.displayElements[5] && room.displayElements[2] == room.displayElements[8] && room.displayElements[8] != "") {
                     console.log("8");
@@ -199,12 +208,14 @@ io.on("connection", (socket) => {
                         "winnerDeclared": true,
                         "winner": room.turn,
                     })
+                    io.to(roomId).emit('updatePlayers', room.player)
                 }
                 else if (room.filledBoxes >= 9) {
                     console.log("9");
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": false,
                     })
+                    io.to(roomId).emit('updatePlayers', room.player)
                 }
 
             }
@@ -263,6 +274,7 @@ io.on("connection", (socket) => {
     });
 
     socket.on("ping", ({ startTime }) => {
+    console.log("pinged at "+startTime)
         socket.emit("pong", startTime);
     });
 

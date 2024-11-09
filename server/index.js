@@ -130,7 +130,7 @@ io.on("connection", (socket) => {
             if (room.filledBoxes > 2) {
                 if (room.displayElements[0] == room.displayElements[1] && room.displayElements[0] == room.displayElements[2] && room.displayElements[0] != "") {
                     console.log("1");
-                    room.player[turnIndex].points++;
+                    room.player[room.turnIndex].points++;
                     await room.save();
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": true,
@@ -139,7 +139,7 @@ io.on("connection", (socket) => {
                 }
                 else if (room.displayElements[3] == room.displayElements[4] && room.displayElements[3] == room.displayElements[5] && room.displayElements[3] != "") {
                     console.log("2");
-                    room.player[turnIndex].points++;
+                    room.player[room.turnIndex].points++;
                     await room.save();
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": true,
@@ -148,7 +148,7 @@ io.on("connection", (socket) => {
                 }
                 else if (room.displayElements[6] == room.displayElements[7] && room.displayElements[6] == room.displayElements[8] && room.displayElements[6] != "") {
                     console.log("3");
-                    room.player[turnIndex].points++;
+                    room.player[room.turnIndex].points++;
                     await room.save();
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": true,
@@ -157,7 +157,7 @@ io.on("connection", (socket) => {
                 }
                 else if (room.displayElements[0] == room.displayElements[4] && room.displayElements[0] == room.displayElements[8] && room.displayElements[0] != "") {
                     console.log("4");
-                    room.player[turnIndex].points++;
+                    room.player[room.turnIndex].points++;
                     await room.save();
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": true,
@@ -166,7 +166,7 @@ io.on("connection", (socket) => {
                 }
                 else if (room.displayElements[2] == room.displayElements[4] && room.displayElements[2] == room.displayElements[6] && room.displayElements[2] != "") {
                     console.log("5");
-                    room.player[turnIndex].points++;
+                    room.player[room.turnIndex].points++;
                     await room.save();
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": true,
@@ -175,7 +175,7 @@ io.on("connection", (socket) => {
                 }
                 else if (room.displayElements[0] == room.displayElements[3] && room.displayElements[0] == room.displayElements[6] && room.displayElements[0] != "") {
                     console.log("6");
-                    room.player[turnIndex].points++;
+                    room.player[room.turnIndex].points++;
                     await room.save();
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": true,
@@ -184,7 +184,7 @@ io.on("connection", (socket) => {
                 }
                 else if (room.displayElements[1] == room.displayElements[4] && room.displayElements[1] == room.displayElements[7] && room.displayElements[1] != "") {
                     console.log("7");
-                    room.player[turnIndex].points++;
+                    room.player[room.turnIndex].points++;
                     await room.save();
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": true,
@@ -193,7 +193,7 @@ io.on("connection", (socket) => {
                 }
                 else if (room.displayElements[2] == room.displayElements[5] && room.displayElements[2] == room.displayElements[8] && room.displayElements[8] != "") {
                     console.log("8");
-                    room.player[turnIndex].points++;
+                    room.player[room.turnIndex].points++;
                     await room.save();
                     io.to(roomId).emit("matchConluded", {
                         "winnerDeclared": true,

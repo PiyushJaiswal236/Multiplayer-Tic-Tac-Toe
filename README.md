@@ -1,16 +1,18 @@
-# multiplayer_tick_tac_toe
+<h1 align="center">Welcome to Multiplayer Tic Tac Toe 👋</h1>
+<p>
+</p>
 
-A new Flutter project.
+> A online Two Player Tic Tac toe with match link sharing
 
-## Getting Started
+## Install
 
-This project is a starting point for a Flutter application.
+```sh
+http://localhost
+```
 
-A few resources to get you started if this is your first Flutter project:
+## Show your support
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Give a ⭐️ if this project helped you!
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

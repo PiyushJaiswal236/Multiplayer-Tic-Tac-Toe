@@ -285,7 +285,7 @@ io.on("connection", (socket) => {
   });
 });
 
-const url = `https://multiplayer-tic-tac-toe-78eh.onrender.com/`;
+const url = `https://multiplayer-tic-tac-toe-78eh.onrender.com/health`;
 const interval = 30000;
 
 function reloadWebsite() {
@@ -303,6 +303,7 @@ function reloadWebsite() {
         `Error reloading at ${new Date().toISOString()}:`,
         error.message
       );
+      console.error(error);
     });
 }
 
